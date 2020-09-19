@@ -98,13 +98,6 @@ jQuery('document').ready(function () {
         request.send(arr);
 
 
-        // if (request.status === 200) {
-        //     document.getElementById('main-table').innerHTML = request.responseText;
-        //     console.log(request.responseText);
-        // }
-        // }
-
-
     });
 
     // очистка
