@@ -2,15 +2,14 @@ let y;
 let x;
 let r;
 let message;
-let count = 0;
 
 jQuery('document').ready(function () {
 
     // проверка правильности ввода значения Y
     jQuery('#inY').on('keyup', function () {
 
-        ctx.clearRect(0,0,400,400);
-        drawCanvas();
+        // ctx.clearRect(0,0,400,400);
+        // drawCanvas();
 
         let img_y = document.createElement("img");
         img_y.src = "https://dropi.ru/img/uploads/2018-08-27/5_original.jpeg";
@@ -42,8 +41,8 @@ jQuery('document').ready(function () {
 
 
             let limit = 1;
-            jQuery(".r").on("change", function(){
-                if( jQuery(this).siblings(":checked").length >= limit){
+            jQuery(".r").on("change", function () {
+                if (jQuery(this).siblings(":checked").length >= limit) {
                     this.checked = false;
                 }
             });
@@ -66,7 +65,7 @@ jQuery('document').ready(function () {
 
     // работа с X
     $('#inX').on("change", function () {
-        ctx.clearRect(0,0,400,400);
+        ctx.clearRect(0, 0, 400, 400);
         drawCanvas();
         if (this.value !== "graphic")
             x = this.value;
@@ -76,7 +75,7 @@ jQuery('document').ready(function () {
 
 
     //отправка
-    jQuery('#send').on('click',function () {
+    jQuery('#send').on('click', function () {
         if (x == null || r == null || isNaN(y) || y >= 3 || y <= -3) {
 
             jQuery('#answer').html("Неправильные данные");
@@ -92,18 +91,17 @@ jQuery('document').ready(function () {
             jQuery('#answer').html("");
             jQuery('#first_line').html("");
         }
-            let request = new XMLHttpRequest()
-            let arr = "x=" + encodeURIComponent(x) + "&y=" + encodeURIComponent(y) + "&r=" + encodeURIComponent(r);
-            request.open('POST', "app", false);
-            request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            request.send(arr);
+        let request = new XMLHttpRequest()
+        let arr = "x=" + encodeURIComponent(x) + "&y=" + encodeURIComponent(y) + "&r=" + encodeURIComponent(r);
+        request.open('POST', "app", false);
+        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        request.send(arr);
 
 
-
-            // if (request.status === 200) {
-            //     document.getElementById('main-table').innerHTML = request.responseText;
-            //     console.log(request.responseText);
-            // }
+        // if (request.status === 200) {
+        //     document.getElementById('main-table').innerHTML = request.responseText;
+        //     console.log(request.responseText);
+        // }
         // }
 
 
@@ -121,12 +119,14 @@ jQuery('document').ready(function () {
     let
         graph = document.getElementById("graphic"),
         ctx = graph.getContext('2d'),
-        res;
+        res, coords = [];
 
     graph.width = 400;
     graph.height = 400;
 
     function drawCanvas() {
+
+
         ctx.beginPath();
 
         // оси
@@ -229,35 +229,44 @@ jQuery('document').ready(function () {
 
         ctx.stroke();
     }
+
     drawCanvas();
+
+
+
+    coords = JSON.parse(localStorage.getItem('coords'));
+    console.log(coords);
+    if (coords !== null) {
+
+        coords.forEach(function (crd){
+            let
+                e = {
+                    clientX: crd["0"],
+                    clientY: crd["1"]
+                };
+            ctx.beginPath();
+            ctx.arc(e.clientX, e.clientY, 2, 0, Math.PI * 2);
+            ctx.fillStyle = "green";
+            ctx.fill();
+        });
+    } else
+        coords = [];
 
     graph.addEventListener('click', function(e) {
         if (isNaN(r)) {
             alert("Введите r")
+            ctx.beginPath();
+            ctx.arc(e.clientX - 23, e.clientY - 73, 2, 0, Math.PI * 2);
+            ctx.fillStyle = "red";
+            ctx.fill();
         } else {
-            if (count === 0) {
-                ctx.beginPath();
-                ctx.arc(e.clientX - 23, e.clientY - 73, 2, 0, Math.PI * 2);
-                ctx.fillStyle = "red";
-                ctx.fill();
-                count++;
-            } else {
+            coords.push([e.clientX - 23, e.clientY - 73]);
+            localStorage.setItem('coords', JSON.stringify(coords));
 
-                ctx.clearRect(0, 0, 400, 400);
-                drawCanvas();
-                ctx.beginPath();
-                ctx.arc(e.clientX - 23, e.clientY - 73, 2, 0, Math.PI * 2);
-                ctx.fillStyle = "red";
-                ctx.fill();
-
-            }
 
             y = ((110 - (e.clientY - 73)) * r) / 60;
             x = (((e.clientX - 23) - 200) * r) / 60;
 
-
-            console.log(x);
-            console.log(y);
 
             if ((x <= 0 && y >= 0 && x >= -r && y <= r / 2) ||
                 (x <= 0 && y <= 0 && (x * x) + (y * y) <= ((r * r) / 4)) ||
