@@ -42,7 +42,7 @@
 
       <table style="width: 100%">
         <tr>
-          <td style="width: 50%;">
+          <td style="width: 40%;">
 
             <!--                        ГРАФИК-->
             <canvas id="graphic" width="400" height="400">Not Allowed</canvas>
@@ -98,7 +98,7 @@
                     <div>X Value:</div>
                     <label>
                       <select id = "inX">
-                        <option>-5</option>
+                        <option selected>-5</option>
                         <option>-4</option>
                         <option>-3</option>
                         <option>-2</option>
@@ -147,10 +147,6 @@
       </table>
 
     </td>
-  </tr>
-  <tr style="height: 70px">
-    <td colspan="2" style="background-color:#85C2FF;text-align:center; vertical-align: center" >
-      © Sudarina 2020</td>
   </tr>
 </table>
 

@@ -56,14 +56,12 @@ jQuery('document').ready(function () {
                 r = 3;
             } else
                 r = null;
-            console.log(document.getElementsByName("R"));
         }
     });
 
     // работа с X
     $('#inX').on("change", function () {
-        ctx.clearRect(0, 0, 400, 400);
-        drawCanvas();
+
         if (this.value !== "graphic")
             x = this.value;
         else
@@ -221,8 +219,6 @@ jQuery('document').ready(function () {
     }
 
     drawCanvas();
-
-
 
     coords = JSON.parse(localStorage.getItem('coords'));
     console.log(coords);
