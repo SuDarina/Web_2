@@ -19,7 +19,6 @@
   <link rel="stylesheet" type="text/css" href="buttons.css">
   <script type="text/javascript" src="jquery-3.5.1.js"></script>
   <script type="text/javascript" src="script.js"></script>
-<%--  <script type="text/javascript" src="graphic.js"></script>--%>
 </head>
 <body>
 <table class="verst">

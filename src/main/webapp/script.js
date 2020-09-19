@@ -276,8 +276,6 @@ jQuery('document').ready(function () {
                 res = "no";
             }
             console.log(res);
-            // $('#inX').val("no");
-            // $('#inY').prop('value', y);
         }
             jQuery('#send').click();
 
