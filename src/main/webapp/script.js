@@ -8,9 +8,6 @@ jQuery('document').ready(function () {
     // проверка правильности ввода значения Y
     jQuery('#inY').on('keyup', function () {
 
-        // ctx.clearRect(0,0,400,400);
-        // drawCanvas();
-
         let img_y = document.createElement("img");
         img_y.src = "https://dropi.ru/img/uploads/2018-08-27/5_original.jpeg";
         img_y.width = 200;

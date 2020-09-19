@@ -136,8 +136,6 @@
       <table id = "main-table">
 
       <%
-//          out.print(request.getSession().getAttribute("rowList"));
-//          System.out.println(request.getSession().getAttribute("rowList"));
         List<String> rows = (List) request.getSession().getAttribute("tableRows");
         if (rows != null && !rows.isEmpty()) {
           for (String row : rows) {
