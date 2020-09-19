@@ -68,9 +68,6 @@ jQuery('document').ready(function () {
 
     });
 
-
-
-
     //отправка
     jQuery('#send').on('click', function () {
         if (x == null || r == null || isNaN(y) || y >= 3 || y <= -3) {
