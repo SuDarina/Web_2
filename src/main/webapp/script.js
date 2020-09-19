@@ -60,13 +60,15 @@ jQuery('document').ready(function () {
     });
 
     // работа с X
+    x = -5;
+    console.log(x);
     $('#inX').on("change", function () {
 
-        if (this.value !== "graphic")
             x = this.value;
-        else
-            x = null;
+
     });
+
+
 
 
     //отправка
