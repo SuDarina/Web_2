@@ -36,7 +36,6 @@ jQuery('document').ready(function () {
             let v4 = document.querySelector(".r[value='v25']");
             let v5 = document.querySelector(".r[value='v3']");
 
-
             let limit = 1;
             jQuery(".r").on("change", function () {
                 if (jQuery(this).siblings(":checked").length >= limit) {
@@ -249,10 +248,8 @@ jQuery('document').ready(function () {
             coords.push([e.clientX - 23, e.clientY - 73]);
             localStorage.setItem('coords', JSON.stringify(coords));
 
-
             y = ((110 - (e.clientY - 73)) * r) / 60;
             x = (((e.clientX - 23) - 200) * r) / 60;
-
 
             if ((x <= 0 && y >= 0 && x >= -r && y <= r / 2) ||
                 (x <= 0 && y <= 0 && (x * x) + (y * y) <= ((r * r) / 4)) ||
@@ -264,7 +261,6 @@ jQuery('document').ready(function () {
             console.log(res);
         }
             jQuery('#send').click();
-
 
     });
 })
