@@ -10,23 +10,25 @@
 <html>
 <head>
     <title>LabWeb_2</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="Css/style.css">
+    <link rel="stylesheet" type="text/css" href="Css/buttons.css">
 </head>
 <body>
 <table class="verst">
-    <tr style="background-color:#85C2FF; height: 50px" class = "header">
-
+    <tr class = "header">
         <td  class="left">
-            <div>Supriadkina Daria, P3230</div>
+            <div>Супрядкина Дарья,<br>Ходосова Елена, P3230</div>
         </td>
 
         <td class="right">
-            <div>Вариант 2624</div>
+            <div><img class="head-img" src="resources/kind.gif" id="kind"
+                      onmouseover="this.src='resources/angry.gif'"
+                      onmouseout="this.src='resources/kind.gif'">Вариант 2630</div>
         </td>
     </tr>
-    <tr>
+    <tr class="page">
         <td>
-    <table>
+    <table class="main-table" style="width: 100%">
         <tr>
             <td>X</td>
             <td>Y</td>
@@ -41,7 +43,7 @@
 
             while(itr.hasNext()) {
                 lastElement=itr.next();
-            }
+             }
             out.println(lastElement);
         %>
         <tr>
@@ -54,6 +56,12 @@
     </tr>
 </table>
 
+<div class = "footer">
+
+    <p colspan="2"><a class="git-href" href="https://github.com/SuDarina/Web_2">
+        <img class="github" src="resources/icon.png">
+    </a></p>
+</div>
 
 </body>
 </html>

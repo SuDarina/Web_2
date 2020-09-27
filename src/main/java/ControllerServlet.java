@@ -11,15 +11,13 @@ public class ControllerServlet extends HttpServlet {
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        try{
-            Double.parseDouble(req.getParameter("x"));
-            Double.parseDouble(req.getParameter("y"));
-            Double.parseDouble(req.getParameter("r"));
-            getServletContext().getNamedDispatcher("AreaChecker").forward(req, resp);
-        }catch (NumberFormatException | NullPointerException exception ) {
-            getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
-        }
-
-
+            try {
+                    Double.parseDouble(req.getParameter("x"));
+                    Double.parseDouble(req.getParameter("y"));
+                    Double.parseDouble(req.getParameter("r"));
+                getServletContext().getNamedDispatcher("AreaChecker").forward(req, resp);
+            } catch (NumberFormatException | NullPointerException exception) {
+                getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
+            }
     }
 }

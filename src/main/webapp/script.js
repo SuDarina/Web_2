@@ -1,29 +1,19 @@
-let y;
-let x;
-let r;
-let message;
-
+let y, x, r;
 jQuery('document').ready(function () {
 
     // проверка правильности ввода значения Y
-    jQuery('#inY').on('keyup', function () {
+    jQuery('#inY').on('change', function () {
 
         let img_y = document.createElement("img");
         img_y.src = "https://dropi.ru/img/uploads/2018-08-27/5_original.jpeg";
         img_y.width = 200;
-
         y = jQuery('#inY').val();
         y = parseFloat(y);
-
-        if (y >= 3 || y <= -3) {
-            message = "Y должен быть в пределах\n(-3; 3)";
-            jQuery('#first_line').html(img_y);
-        } else {
-            message = "";
-            jQuery('#first_line').html('')
-
-        }
-        jQuery('#answer').html(message);
+            if (!(y> -3 && y < 3)) {
+                alert("Y должен быть (-3;3)");
+                jQuery('#first_line').html(img_y);
+                return false;
+            }
     })
 
     // работа с checkbox (R)
@@ -63,43 +53,51 @@ jQuery('document').ready(function () {
     console.log(x);
     $('#inX').on("change", function () {
 
-            x = this.value;
+        x = this.value;
 
     });
 
 
     //отправка
     jQuery('#send').on('click', function () {
-        if (x == null || r == null || isNaN(y) || y >= 3 || y <= -3) {
+        send("button");
+    });
+    function send(key) {
+        const keys = ["button", "canvas"];
+        if (keys.includes(key)) {
+            if (x == null || r == null || isNaN(y) || y >= 3 || y <= -3) {
+                if (r == null) {
+                    alert("Выберите R");
+                    return false;
 
-            jQuery('#answer').html("Неправильные данные");
-            let ans = document.createElement("img");
-            ans.src = "https://www.syl.ru/misc/i/ai/383845/2504141.jpg";
-            ans.width = 200;
+                }
 
-            jQuery('#first_line').html(ans);
+                console.log("x=" + x + "y=" + y + "r=" + r + "type=" + type);
+
+                jQuery('#answer').html("Неправильные данные");
+                let ans = document.createElement("img");
+                ans.src = "https://www.syl.ru/misc/i/ai/383845/2504141.jpg";
+                ans.width = 200;
+
+                jQuery('#first_line').html(ans);
+
+
+            } else {
+                location.href = "answer.jsp";
+                jQuery('#answer').html("");
+                jQuery('#first_line').html("");
+            }
+            let request = new XMLHttpRequest()
+            let arr = "x=" + encodeURIComponent(x) + "&y=" + encodeURIComponent(y) + "&r=" + encodeURIComponent(r) + "&key=" + encodeURIComponent(key);
+            request.open('POST', "app", false);
+            request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            request.send(arr);
 
 
         } else {
-            location.href = "answer.jsp";
-            jQuery('#answer').html("");
-            jQuery('#first_line').html("");
+            alert("Error, wrong type. Button or canvas expected.")
         }
-        let request = new XMLHttpRequest()
-        let arr = "x=" + encodeURIComponent(x) + "&y=" + encodeURIComponent(y) + "&r=" + encodeURIComponent(r);
-        request.open('POST', "app", false);
-        request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-        request.send(arr);
-
-
-    });
-
-    // очистка
-
-    jQuery('#clear').on('click', function () {
-
-        console.log("Очистка")
-    });
+    }
 
     // работа с графиком
 
@@ -140,7 +138,7 @@ jQuery('document').ready(function () {
         //III квадрант
         ctx.beginPath();
         ctx.moveTo(200, 110);
-        ctx.fillStyle = "lightgreen";
+        ctx.fillStyle = "#00a5dc";
         ctx.arc(200, 110, 30, (Math.PI) / 2, Math.PI);
         ctx.closePath();
         ctx.fill();
@@ -216,7 +214,6 @@ jQuery('document').ready(function () {
 
         ctx.stroke();
     }
-
     drawCanvas();
 
     coords = JSON.parse(localStorage.getItem('coords'));
@@ -231,15 +228,15 @@ jQuery('document').ready(function () {
                 };
             ctx.beginPath();
             ctx.arc(e.clientX, e.clientY, 2, 0, Math.PI * 2);
-            ctx.fillStyle = "green";
+            ctx.fillStyle = "#0af167";
             ctx.fill();
         });
     } else
         coords = [];
 
     graph.addEventListener('click', function(e) {
-        if (isNaN(r)) {
-            alert("Введите r")
+        if (isNaN(r)) {/*
+            alert("Введите r")*/
             ctx.beginPath();
             ctx.arc(e.clientX - 23, e.clientY - 73, 2, 0, Math.PI * 2);
             ctx.fillStyle = "red";
@@ -260,7 +257,6 @@ jQuery('document').ready(function () {
             }
             console.log(res);
         }
-            jQuery('#send').click();
-
+        send("canvas");
     });
-})
+});
