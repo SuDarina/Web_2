@@ -1,21 +1,45 @@
 let y, x, r;
+
 jQuery('document').ready(function () {
 
-    // проверка правильности ввода значения Y
-    jQuery('#inY').on('change', function () {
-
+    jQuery('#inY').on('keyup', function () {
         let img_y = document.createElement("img");
         img_y.src = "https://dropi.ru/img/uploads/2018-08-27/5_original.jpeg";
         img_y.width = 200;
         y = jQuery('#inY').val();
-        y = parseFloat(y);
-            if (!(y> -3 && y < 3)) {
-                alert("Y должен быть (-3;3)");
+        if (isFinite(y)) {
+            y = parseFloat(y);
+            y *= 1000;
+            y = Math.floor(y) / 1000;
+            if (!(y > -3 && y < 3)) {
+                jQuery('#answer').html("Y должен быть (-3;3)");
+                jQuery('#first_line').html(img_y);
+                console.log("true y")
+                return false;
+            }
+            $('#answer').html("");
+            $('#first_line').html("");
+            return true;
+        }
+            else {
+                jQuery('#answer').html("Y должен быть числом");
+                img_y.src="resources/what.jpg"
                 jQuery('#first_line').html(img_y);
                 return false;
             }
     })
+    // проверка правильности ввода значения Y
+ /*   jQuery('#inY').on('change', function () {
 
+        let img_y = document.createElement("img");
+        img_y.src = "https://dropi.ru/img/uploads/2018-08-27/5_original.jpeg";
+        img_y.width = 200;/!*
+        y = jQuery('#inY').val();
+        y = parseFloat(y);*!/
+
+            }
+    })
+*/
     // работа с checkbox (R)
     document.querySelectorAll('.r').forEach(element => {
         element.onclick = function () {
@@ -49,9 +73,8 @@ jQuery('document').ready(function () {
     });
 
     // работа с X
-    x = -5;
-    console.log(x);
-    $('#inX').on("change", function () {
+    x=-5;
+    jQuery('#inX').on("change", function () {
 
         x = this.value;
 
@@ -67,14 +90,14 @@ jQuery('document').ready(function () {
         if (keys.includes(key)) {
             if (x == null || r == null || isNaN(y) || y >= 3 || y <= -3) {
                 if (r == null) {
-                    alert("Выберите R");
+                    jQuery('#answer').html("Выберите R");
                     return false;
 
                 }
 
-                console.log("x=" + x + "y=" + y + "r=" + r + "type=" + type);
+                console.log("x=" + x + "y=" + y + "r=" + r + "type=" + key);
 
-                jQuery('#answer').html("Неправильные данные");
+                $('#answer').html("Неправильные данные");
                 let ans = document.createElement("img");
                 ans.src = "https://www.syl.ru/misc/i/ai/383845/2504141.jpg";
                 ans.width = 200;
@@ -214,10 +237,10 @@ jQuery('document').ready(function () {
 
         ctx.stroke();
     }
+
     drawCanvas();
 
     coords = JSON.parse(localStorage.getItem('coords'));
-    console.log(coords);
     if (coords !== null) {
 
         coords.forEach(function (crd){
@@ -235,8 +258,7 @@ jQuery('document').ready(function () {
         coords = [];
 
     graph.addEventListener('click', function(e) {
-        if (isNaN(r)) {/*
-            alert("Введите r")*/
+        if (isNaN(r)) {
             ctx.beginPath();
             ctx.arc(e.clientX - 23, e.clientY - 73, 2, 0, Math.PI * 2);
             ctx.fillStyle = "red";
@@ -254,6 +276,7 @@ jQuery('document').ready(function () {
                 res = "yes";
             } else {
                 res = "no";
+                jQuery('#answer').html("Неверные данные, вы не попали в одз. Попробуйте измениить радиус")
             }
             console.log(res);
         }

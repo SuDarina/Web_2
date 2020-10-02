@@ -28,23 +28,32 @@
     </tr>
     <tr class="page">
         <td>
-    <table class="main-table" style="width: 100%">
+    <table class="main-table" style="width: 100%"><%--
         <tr>
             <td>X</td>
             <td>Y</td>
             <td>R</td>
             <td>Answer</td>
             <td>Time</td>
-        </tr>
+        </tr>--%>
         <%
-           List<String> tableRows = (List<String>) request.getSession().getAttribute("tableRows");
-            final Iterator<String> itr = tableRows.iterator();
-            String lastElement = itr.next();
+            List<String> tableRows = (List<String>) request.getSession().getAttribute("tableRows");
+            if (tableRows != null) {
+                out.println("<td>X</td>\n" +
+                        "            <td>Y</td>\n" +
+                        "            <td>R</td>\n" +
+                        "            <td>Answer</td>\n" +
+                        "            <td>Time</td>");
+                final Iterator<String> itr = tableRows.iterator();
+                String lastElement = itr.next();
 
-            while(itr.hasNext()) {
-                lastElement=itr.next();
-             }
-            out.println(lastElement);
+                while (itr.hasNext()) {
+                    lastElement = itr.next();
+                }
+                out.println(lastElement);
+            }else{
+                out.print("No data in request");
+            }
         %>
         <tr>
             <td>

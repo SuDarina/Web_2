@@ -15,7 +15,7 @@
     LabWork_2
   </title>
   <link rel="icon" type="image/png" href="resources/angry.gif">
-  <link rel="stylesheet" type="text/css" href="Css/style.css">
+  <link rel="stylesheet" type="text/css" href="Css/style.css" id="theme-link">
   <link rel="stylesheet" type="text/css" href="Css/buttons.css">
   <script type="text/javascript" src="jquery-3.5.1.js"></script>
   <script type="text/javascript" src="script.js"></script>
@@ -27,6 +27,7 @@
 
     <td  class="left">
       <div>Супрядкина Дарья,<br>Ходосова Елена, P3230</div>
+
     </td>
 
     <td class="right">
@@ -61,7 +62,7 @@
                     <label>
                       <!--                                        значение по y-->
                       <label for="inY" id="r-label">Y Value:</label>
-                      <input type="number" id="inY" required>
+                      <input type="text" id="inY" min="-3" max="3" maxlength="5" placeholder="-3..3" oninput=setCustomValidity('') required>
                     </label>
                   </td>
                 </tr>
@@ -73,17 +74,23 @@
                       R Value:<br>
                       <input type = 'checkbox' class="r" value="v1" name="R">
                       <label>1</label>
+                      <br>
+
                       <input type = 'checkbox' class="r" value="v15" name="R">
                       <label>1,5</label>
+                      <br>
 
                       <input type = 'checkbox' class="r" value="v2" name="R">
                       <label>2</label>
+                      <br>
 
                       <input type = 'checkbox' class="r" value="v25" name="R">
                       <label>2,5</label>
+                      <br>
 
                       <input type = 'checkbox' class="r" value="v3" name="R">
                       <label>3</label>
+                      <br>
 
                     </div>
 

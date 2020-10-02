@@ -16,11 +16,11 @@ public class AreaCheckServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         HttpSession session = req.getSession();
         resp.setContentType("text/html;charset=UTF-8");
-            double x = Double.parseDouble(req.getParameter("x"));
-            double y = Double.parseDouble(req.getParameter("y"));
-            double r = Double.parseDouble(req.getParameter("r"));
-            String key = req.getParameter("key");
-            if (key.equals("canvas") || validation(x,y,r)){
+        double x = Double.parseDouble(req.getParameter("x"));
+        double y = Double.parseDouble(req.getParameter("y"));
+        double r = Double.parseDouble(req.getParameter("r"));
+        String key = req.getParameter("key");
+        if (key.equals("canvas") || validation(x,y,r)){
             List<String> tableRows = (List) session.getAttribute("tableRows");
             if (tableRows == null) {
                 tableRows = new LinkedList<>();
@@ -47,12 +47,11 @@ public class AreaCheckServlet extends HttpServlet {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            } else {
-                System.out.println("error");
-                //resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+        } else {
+            System.out.println("error");
+            //resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
-
 
     private boolean check(double x, double y, double r) {
 
