@@ -53,7 +53,7 @@ jQuery('document').ready(function () {
             let limit = 1;
             jQuery(".r").on("change", function () {
                 if (jQuery(this).siblings(":checked").length >= limit) {
-                    this.checked = false;
+                    $('.r').not(this).prop('checked',false);
                 }
             });
 
