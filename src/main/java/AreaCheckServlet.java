@@ -16,40 +16,46 @@ public class AreaCheckServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         HttpSession session = req.getSession();
         resp.setContentType("text/html;charset=UTF-8");
-        double x = Double.parseDouble(req.getParameter("x"));
-        double y = Double.parseDouble(req.getParameter("y"));
-        double r = Double.parseDouble(req.getParameter("r"));
         String key = req.getParameter("key");
-        if (key.equals("canvas") || validation(x,y,r)){
-            List<String> tableRows = (List) session.getAttribute("tableRows");
-            if (tableRows == null) {
-                tableRows = new LinkedList<>();
-                session.setAttribute("tableRows", tableRows);
-                tableRows.add("<tr>" +
-                        "<td>x</td>" +
-                        "<td>y</td>" +
-                        "<td>r</td>" +
-                        "<td>Точка входит в ОДЗ</td>" +
-                        "<td>Текущее время</td></tr>");
-            }
-            try {
-                PrintWriter writer = resp.getWriter();
-                tableRows.add("<tr>" +
-                        "<td>" + x + "</td>" +
-                        "<td>" + y + "</td>" +
-                        "<td>" + r + "</td>" +
-                        "<td>" + check(x, y, r) + "</td>" +
-                        "<td>" + new Date() + "</td></tr>");
-                for (String tableRow : tableRows) writer.println(tableRow);
+        if (key.equals("theme")) {
+            String theme = req.getParameter("theme");
+            session.setAttribute("theme", theme);
+            getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
+        }else {
+            double x = Double.parseDouble(req.getParameter("x"));
+            double y = Double.parseDouble(req.getParameter("y"));
+            double r = Double.parseDouble(req.getParameter("r"));
+            if (key.equals("canvas") || validation(x, y, r)) {
+                List<String> tableRows = (List) session.getAttribute("tableRows");
+                if (tableRows == null) {
+                    tableRows = new LinkedList<>();
+                    session.setAttribute("tableRows", tableRows);
+                    tableRows.add("<tr>" +
+                            "<td>x</td>" +
+                            "<td>y</td>" +
+                            "<td>r</td>" +
+                            "<td>Точка входит в ОДЗ</td>" +
+                            "<td>Текущее время</td></tr>");
+                }
+                try {
+                    PrintWriter writer = resp.getWriter();
+                    tableRows.add("<tr>" +
+                            "<td>" + x + "</td>" +
+                            "<td>" + y + "</td>" +
+                            "<td>" + r + "</td>" +
+                            "<td>" + check(x, y, r) + "</td>" +
+                            "<td>" + new Date() + "</td></tr>");
+                    for (String tableRow : tableRows) writer.println(tableRow);
 
-                RequestDispatcher requestDispatcher = req.getRequestDispatcher("answer.jsp");
-                requestDispatcher.forward(req, resp);
-            } catch (Exception e) {
-                e.printStackTrace();
+                    RequestDispatcher requestDispatcher = req.getRequestDispatcher("answer.jsp");
+                    requestDispatcher.forward(req, resp);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            } else {
+                System.out.println("error");
+                //resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
             }
-        } else {
-            System.out.println("error");
-            //resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
     }
 

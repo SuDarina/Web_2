@@ -2,7 +2,6 @@ body{
     margin: 0;
     padding: 0;
     height: 100%;
-    background: #5d5c5d;
     font-family: Arial, monospace;
     font-size: 12pt;
     font-style: inherit;
@@ -24,8 +23,6 @@ tr{
 }
 
 .page{
-    background: #5d5c5d;
-    color: #f4f4f4;
     height: 100%;
 }
 
@@ -34,7 +31,6 @@ tr{
     border-spacing: 0;
     width: 90%;
     padding: 10%;
-    color: #f4f4f4;
 }
 
 .footer{
@@ -45,7 +41,6 @@ tr{
     left: 0; bottom: 0;
     padding: 0.5%;
     margin: 0;
-    color: #fff;
     display: flex;
     justify-content: center;
 }
@@ -85,17 +80,10 @@ tr{
 .formtab{
     background: #373737;
     border-radius: 7%;
-    color: #f4f4f4;
     padding: 8%;
     margin: 5%;
 }
-.formtab:hover{
-    box-shadow: 0 0 5px 2px lightsalmon;
-    z-index: 99;
-}
 .header{
-    color: #f4f4f4;
-    background: #373737;
     height: 50px;
 }
 .head-img{

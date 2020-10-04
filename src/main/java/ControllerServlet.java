@@ -9,15 +9,18 @@ public class ControllerServlet extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
     }
+
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-            try {
-                    Double.parseDouble(req.getParameter("x"));
-                    Double.parseDouble(req.getParameter("y"));
-                    Double.parseDouble(req.getParameter("r"));
-                getServletContext().getNamedDispatcher("AreaChecker").forward(req, resp);
-            } catch (NumberFormatException | NullPointerException exception) {
-                getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
+        try {
+            if (!req.getParameter("key").equals("theme")) {
+                Double.parseDouble(req.getParameter("x"));
+                Double.parseDouble(req.getParameter("y"));
+                Double.parseDouble(req.getParameter("r"));
             }
+            getServletContext().getNamedDispatcher("AreaChecker").forward(req, resp);
+        } catch (NumberFormatException | NullPointerException exception) {
+            getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
+        }
     }
 }

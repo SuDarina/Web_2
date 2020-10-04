@@ -5,15 +5,19 @@ button {
     font-size: 16px;
     margin: 2%;
     padding: 2% 7%;
-    background: #5d5c5d;
-    color: #f4f4f4;
 
 }
 button:hover {
-    box-shadow: 0 0 5px 2px lightsalmon;
     z-index: 99;}
 button:active {
-    box-shadow: 0 0 5px 2px lightsalmon;
     z-index: 99;
     animation: transform 2s infinite;
+}
+#theme-button{
+    position: absolute;
+    margin-left: 8%;
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0;
+    padding: 0.5% 1%;
 }
