@@ -20,26 +20,25 @@ jQuery('document').ready(function () {
             $('#answer').html("");
             $('#first_line').html("");
             return true;
+        } else {
+            jQuery('#answer').html("Y должен быть числом");
+            img_y.src = "resources/what.jpg"
+            jQuery('#first_line').html(img_y);
+            return false;
         }
-            else {
-                jQuery('#answer').html("Y должен быть числом");
-                img_y.src="resources/what.jpg"
-                jQuery('#first_line').html(img_y);
-                return false;
-            }
     })
     // проверка правильности ввода значения Y
- /*   jQuery('#inY').on('change', function () {
+    /*   jQuery('#inY').on('change', function () {
 
-        let img_y = document.createElement("img");
-        img_y.src = "https://dropi.ru/img/uploads/2018-08-27/5_original.jpeg";
-        img_y.width = 200;/!*
-        y = jQuery('#inY').val();
-        y = parseFloat(y);*!/
+           let img_y = document.createElement("img");
+           img_y.src = "https://dropi.ru/img/uploads/2018-08-27/5_original.jpeg";
+           img_y.width = 200;/!*
+           y = jQuery('#inY').val();
+           y = parseFloat(y);*!/
 
-            }
-    })
-*/
+               }
+       })
+   */
     // работа с checkbox (R)
     document.querySelectorAll('.r').forEach(element => {
         element.onclick = function () {
@@ -53,7 +52,7 @@ jQuery('document').ready(function () {
             let limit = 1;
             jQuery(".r").on("change", function () {
                 if (jQuery(this).siblings(":checked").length >= limit) {
-                    $('.r').not(this).prop('checked',false);
+                    $('.r').not(this).prop('checked', false);
                 }
             });
 
@@ -73,7 +72,7 @@ jQuery('document').ready(function () {
     });
 
     // работа с X
-    x=-5;
+    x = -5;
     jQuery('#inX').on("change", function () {
 
         x = this.value;
@@ -85,6 +84,7 @@ jQuery('document').ready(function () {
     jQuery('#send').on('click', function () {
         send("button");
     });
+
     function send(key) {
         const keys = ["button", "canvas"];
         if (keys.includes(key)) {
@@ -243,7 +243,7 @@ jQuery('document').ready(function () {
     coords = JSON.parse(localStorage.getItem('coords'));
     if (coords !== null) {
 
-        coords.forEach(function (crd){
+        coords.forEach(function (crd) {
             let
                 e = {
                     clientX: crd["0"],
@@ -257,7 +257,7 @@ jQuery('document').ready(function () {
     } else
         coords = [];
 
-    graph.addEventListener('click', function(e) {
+    graph.addEventListener('click', function (e) {
         if (isNaN(r)) {
             ctx.beginPath();
             ctx.arc(e.clientX - 23, e.clientY - 73, 2, 0, Math.PI * 2);

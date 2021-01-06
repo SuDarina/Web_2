@@ -5,6 +5,7 @@ body{
     font-family: Arial, monospace;
     font-size: 12pt;
     font-style: inherit;
+    min-height: 100vh;
 }
 td{
     padding: 10px;
@@ -60,8 +61,6 @@ tr{
     vertical-align: bottom;
 }
 
-
-
 .cell{
     border: solid 1px whitesmoke;
     text-align: center;
@@ -85,6 +84,7 @@ tr{
 }
 .header{
     height: 50px;
+
 }
 .head-img{
     width: 5%;

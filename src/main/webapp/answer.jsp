@@ -18,6 +18,7 @@
     <link rel="stylesheet" type="text/css" href="Css/<% out.print(session.getAttribute("theme"));%>" id="theme-link">
     <script type="text/javascript" src="jquery-3.5.1.js"></script>
     <script type="text/javascript" src="theme.js"></script>
+    <script type="text/javascript" src="rotate.js"></script>
 </head>
 <body>
 <table class="verst">

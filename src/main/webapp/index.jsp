@@ -8,7 +8,7 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="ru" style="height: 100%">
 <% if (session.getAttribute("theme") == null) {
     session.setAttribute("theme", "dark.css");
 }%>
@@ -24,13 +24,14 @@
     <script type="text/javascript" src="jquery-3.5.1.js"></script>
     <script type="text/javascript" src="theme.js"></script>
     <script type="text/javascript" src="script.js"></script>
+    <script type="text/javascript" src="rotate.js"></script>
 </head>
 <body>
-
+<div id="page">
 <table class="verst">
     <tr class="header">
         <td class="left">
-            <div>Супрядкина Дарья,<button class="theme-button" id="theme-button">Change theme</button><br>Ходосова Елена, P3230
+            <div>Супрядкина Дарья,<button class="theme-button" id="theme-button">Change theme</button><button class="aus-button" id="aus-button" onclick="australia()">Go to Australia</button><br>Ходосова Елена, P3230
 
             </div>
         </td>
@@ -168,6 +169,7 @@
     <p colspan="2"><a class="git-href" href="https://github.com/SuDarina/Web_2">
         <img class="github" src="resources/icon.png">
     </a></p>
+</div>
 </div>
 
 </body>
