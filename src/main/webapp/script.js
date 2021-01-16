@@ -42,19 +42,21 @@ jQuery('document').ready(function () {
     // работа с checkbox (R)
     document.querySelectorAll('.r').forEach(element => {
         element.onclick = function () {
-
             let v1 = document.querySelector(".r[value = 'v1']");
             let v2 = document.querySelector(".r[value = 'v15']");
             let v3 = document.querySelector(".r[value = 'v2']");
             let v4 = document.querySelector(".r[value='v25']");
             let v5 = document.querySelector(".r[value='v3']");
 
-            let limit = 1;
-            jQuery(".r").on("change", function () {
-                if (jQuery(this).siblings(":checked").length >= limit) {
-                    $('.r').not(this).prop('checked', false);
-                }
-            });
+
+            const arr = $('input[type=checkbox]:checked');
+            for (const elem of arr){
+                if (elem !== element)
+                    elem.checked = false;
+                else
+                    elem.checked = true;
+                console.log(elem.valueOf())
+            }
 
             if (v1.checked) {
                 r = 1;
@@ -68,6 +70,8 @@ jQuery('document').ready(function () {
                 r = 3;
             } else
                 r = null;
+            drawCanvas();
+
         }
     });
 
@@ -109,12 +113,13 @@ jQuery('document').ready(function () {
                 location.href = "answer.jsp";
                 jQuery('#answer').html("");
                 jQuery('#first_line').html("");
+
+                let request = new XMLHttpRequest()
+                let arr = "x=" + encodeURIComponent(x) + "&y=" + encodeURIComponent(y) + "&r=" + encodeURIComponent(r) + "&key=" + encodeURIComponent(key);
+                request.open('POST', "app", false);
+                request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+                request.send(arr);
             }
-            let request = new XMLHttpRequest()
-            let arr = "x=" + encodeURIComponent(x) + "&y=" + encodeURIComponent(y) + "&r=" + encodeURIComponent(r) + "&key=" + encodeURIComponent(key);
-            request.open('POST', "app", false);
-            request.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-            request.send(arr);
 
 
         } else {
@@ -127,148 +132,210 @@ jQuery('document').ready(function () {
     let
         graph = document.getElementById("graphic"),
         ctx = graph.getContext('2d'),
-        res, coords = [];
+        res = [];
 
     graph.width = 400;
     graph.height = 400;
 
     function drawCanvas() {
+        graph.width = 400;
+        graph.height = 400;
+        ctx.lineWidth = 2;
 
-
+        ctx.clearRect(0,0,ctx.canvas.width, ctx.canvas.height);
         ctx.beginPath();
+//    оси
+//    x
+        ctx.moveTo(0, ctx.canvas.height / 2);
+        ctx.lineTo(ctx.canvas.width, ctx.canvas.height / 2);
 
-        // оси
         // y
-        ctx.moveTo(200, 10);
-        ctx.lineTo(200, 210);
-
-        //x
-        ctx.moveTo(100, 110);
-        ctx.lineTo(300, 110);
+        ctx.moveTo(ctx.canvas.width / 2, 0);
+        ctx.lineTo(ctx.canvas.width / 2, ctx.canvas.height);
 
         ctx.stroke();
-
-
-        // II квадрант
-        ctx.beginPath();
-        ctx.fillStyle = "magenta";
-        ctx.strokeStyle = "black";
-        ctx.fillRect(140, 80, 60, 30);
-        ctx.rect(140, 80, 60, 30);
-        ctx.stroke();
-
-
-        //III квадрант
-        ctx.beginPath();
-        ctx.moveTo(200, 110);
-        ctx.fillStyle = "#00a5dc";
-        ctx.arc(200, 110, 30, (Math.PI) / 2, Math.PI);
-        ctx.closePath();
-        ctx.fill();
-        ctx.stroke();
-
-        //IV квадрант
-        ctx.beginPath();
-        ctx.strokeStyle = "black";
-        ctx.moveTo(230, 110);
-        ctx.lineTo(200, 140);
-        ctx.lineTo(200, 110);
-        ctx.fillStyle = "yellow";
-        ctx.closePath();
-        ctx.fill();
-        ctx.stroke();
-
-
-        ctx.beginPath();
-        ctx.strokeStyle = "black";
-        ctx.fillStyle = "black";
-
-        // линии для +-r/2, +-r
-        // по y
-        ctx.moveTo(197, 80);
-        ctx.lineTo(203, 80);
-
-        ctx.moveTo(197, 50);
-        ctx.lineTo(203, 50);
-
-        ctx.moveTo(197, 140);
-        ctx.lineTo(203, 140);
-
-        ctx.moveTo(197, 170);
-        ctx.lineTo(203, 170);
-
-        // по x
-        ctx.moveTo(170, 107);
-        ctx.lineTo(170, 113);
-
-        ctx.moveTo(140, 107);
-        ctx.lineTo(140, 113);
-
-        ctx.moveTo(230, 107);
-        ctx.lineTo(230, 113);
-
-        ctx.moveTo(260, 107);
-        ctx.lineTo(260, 113);
 
         // стрелки
-        // y
-        ctx.moveTo(197, 15);
-        ctx.lineTo(200, 10);
-        ctx.lineTo(203, 15);
-
         //x
-        ctx.moveTo(295, 107);
-        ctx.lineTo(300, 110);
-        ctx.lineTo(295, 113);
-
-        // подписи
-        // по y
-        ctx.font = "10px Georgia";
-        ctx.fillText("R/2", 209, 83);
-        ctx.fillText("R", 209, 53);
-        ctx.fillText("-R/2", 207, 143);
-        ctx.fillText("-R", 207, 173);
-
-        // по x
-        ctx.fillText("-R/2", 163, 102);
-        ctx.fillText("-R", 133, 102);
-        ctx.fillText("R/2", 226, 102);
-        ctx.fillText("R", 256, 102);
-
+        ctx.beginPath();
+        ctx.moveTo(ctx.canvas.width-10, ctx.canvas.height/2-3)
+        ctx.lineTo(ctx.canvas.width, ctx.canvas.height/2);
+        ctx.lineTo(ctx.canvas.width-10, ctx.canvas.height/2+3);
         ctx.stroke();
-    }
 
+        //y
+        ctx.beginPath();
+        ctx.moveTo(ctx.canvas.width/2-3, 10);
+        ctx.lineTo(ctx.canvas.width/2, 0);
+        ctx.lineTo(ctx.canvas.width/2+3, 10);
+        ctx.stroke();
+
+        //      II
+        ctx.beginPath();
+        ctx.fillStyle="lightgreen";
+        ctx.lineWidth = 2;
+        // ctx.moveTo(ctx.canvas.width/2, ctx.canvas.height/2);
+        // ctx.lineTo(2.5*ctx.canvas.width/8, ctx.canvas.height/2);
+        // ctx.lineTo(ctx.canvas.width/2, ctx.canvas.height/8);
+        // ctx.lineTo(ctx.canvas.width/2, ctx.canvas.height/2);
+        ctx.fillRect(ctx.canvas.width/8, 2.5*ctx.canvas.height/8, 3*ctx.canvas.width/8, 3*ctx.canvas.height/16);
+        ctx.rect(ctx.canvas.width/8, 2.5*ctx.canvas.height/8, 3*ctx.canvas.width/8, 3*ctx.canvas.height/16);
+        ctx.stroke();
+        ctx.fill();
+
+
+        //      III
+        ctx.beginPath();
+        ctx.fillStyle="#C07EDF";
+        ctx.arc(ctx.canvas.width/2, ctx.canvas.width/2, (3/16)*ctx.canvas.height, Math.PI/2, Math.PI);
+        ctx.lineTo(ctx.canvas.width/2, ctx.canvas.height/2);
+        // ctx.lineTo(ctx.canvas.width/8, ctx.canvas.height/2);
+        ctx.stroke();
+        ctx.fill();
+
+        // IV
+        ctx.beginPath();
+        ctx.fillStyle="#E09EAA";
+        ctx.moveTo(ctx.canvas.width/2, ctx.canvas.height/2);
+        ctx.lineTo(5.5*ctx.canvas.width/8, ctx.canvas.height/2);
+        ctx.lineTo(ctx.canvas.width/2, 5.5*ctx.canvas.height/8);
+        ctx.lineTo(ctx.canvas.width/2, ctx.canvas.height/2);
+        ctx.stroke();
+        ctx.fill();
+
+        //    разделения
+        //    y
+        //R
+        ctx.strokeStyle = "black";
+        ctx.beginPath();
+        ctx.moveTo(ctx.canvas.width/2.05, ctx.canvas.height/8);
+        ctx.lineTo(ctx.canvas.width/1.95, ctx.canvas.height/8);
+        ctx.stroke();
+        //R/2
+        ctx.beginPath();
+        ctx.moveTo(ctx.canvas.width/2.05, 2.5*ctx.canvas.height/8);
+        ctx.lineTo(ctx.canvas.width/1.95, 2.5*ctx.canvas.height/8);
+        ctx.stroke();
+        //-R
+        ctx.beginPath();
+        ctx.moveTo(ctx.canvas.width/2.05, 7*ctx.canvas.height/8);
+        ctx.lineTo(ctx.canvas.width/1.95, 7*ctx.canvas.height/8);
+        ctx.stroke();
+        //-R/2
+        ctx.beginPath();
+        ctx.moveTo(ctx.canvas.width/2.05, 5.5*ctx.canvas.height/8);
+        ctx.lineTo(ctx.canvas.width/1.95, 5.5*ctx.canvas.height/8);
+        ctx.stroke();
+
+        //    x
+        //-R
+        ctx.beginPath();
+        ctx.moveTo(ctx.canvas.width/8, ctx.canvas.height/2.05);
+        ctx.lineTo(ctx.canvas.width/8, ctx.canvas.height/1.95);
+        ctx.stroke();
+        //-R/2
+        ctx.beginPath();
+        ctx.moveTo(2.5*ctx.canvas.width/8, ctx.canvas.height/2.05);
+        ctx.lineTo(2.5*ctx.canvas.width/8, ctx.canvas.height/1.95);
+        ctx.stroke();
+        //R/2
+        ctx.beginPath();
+        ctx.moveTo(5.5*ctx.canvas.width/8, ctx.canvas.height/2.05);
+        ctx.lineTo(5.5*ctx.canvas.width/8, ctx.canvas.height/1.95);
+        ctx.stroke();
+        //R
+        ctx.beginPath();
+        ctx.moveTo(7*ctx.canvas.width/8, ctx.canvas.height/2.05);
+        ctx.lineTo(7*ctx.canvas.width/8, ctx.canvas.height/1.95);
+        ctx.stroke();
+        rSign(r);
+        loadDots();
+    }
+    function rSign(r){
+        let rr;
+        console.log(r);
+        if (r === undefined || r === null){
+            rr = 1;
+        } else
+            rr = r;
+        console.log(rr)
+        console.log(r)
+        ctx.fillStyle = "black";
+        const size = ctx.canvas.height/20
+        ctx.font=size.toString()+"px Georgia"
+        ctx.fillText('-'+rr.toString(), ctx.canvas.width/8, ctx.canvas.height/2.15);
+        ctx.fillText('-'+rr.toString(), ctx.canvas.width/1.85, 7*ctx.canvas.height/8);
+
+        ctx.fillText('-'+(rr/2).toString(), 2.5*ctx.canvas.width/8, ctx.canvas.height/2.15);
+        ctx.fillText('-'+(rr/2).toString(), ctx.canvas.width/1.85, 5.5*ctx.canvas.height/8);
+
+        ctx.fillText(rr.toString(), 7*ctx.canvas.width/8, ctx.canvas.height/2.15);
+        ctx.fillText(rr.toString(), ctx.canvas.width/1.85, ctx.canvas.height/8);
+
+        ctx.fillText((rr/2).toString(), 5.5*ctx.canvas.width/8, ctx.canvas.height/2.15);
+        ctx.fillText((rr/2).toString(), ctx.canvas.width/1.85, 2.5*ctx.canvas.height/8);
+        ctx.fill()
+
+    }
+    // drawCanvas();
+    // rSign(r);
+    function loadDots() {
+        let arr_cx = []
+        let arr_cy = []
+        let arr_res = [];
+        let arr_x = [];
+        let arr_y = [];
+        let arr_r = [];
+        let arr_date = [];
+        let cells = document.querySelectorAll("#main-table td");
+
+        if(cells.length > 5) {
+            for (let i = 0; i < 5; i++) {
+                for (let j = 5; j < cells.length; j = j + 5) {
+                    if (i === 0) arr_x.push(cells[i + j].innerHTML)
+                    if (i === 1) arr_y.push(cells[i + j].innerHTML)
+                    if (i === 2) arr_r.push(cells[i + j].innerHTML)
+                    if (i === 3) arr_res.push(cells[i + j].innerHTML)
+                    if (i === 4) arr_date.push(cells[i + j].innerHTML)
+                }
+            }
+        }
+        let rr;
+        if (r === null || r === undefined)
+            rr = 1
+        else
+            rr = r;
+
+
+        for (let i = 0; i < arr_x.length; i++){
+            console.log(arr_x[i])
+            let cx = (arr_x[i] / rr) * (7 * ctx.canvas.width / 8 - ctx.canvas.width / 2) + ctx.canvas.width / 2;
+            arr_cx.push(cx);
+
+        }
+        for (let i = 0; i < arr_y.length; i++) {
+            console.log(arr_y[i])
+            let cy = (ctx.canvas.height / 2) - (arr_y[i] / rr) * (ctx.canvas.width / 2 - ctx.canvas.height / 8);
+            arr_cy.push(cy);
+        }
+        console.log(arr_res);
+        for (let i = 0; i < arr_res.length; i++){
+            ctx.beginPath();
+            if (arr_res[i] === "true")
+                ctx.fillStyle = "green";
+            else
+                ctx.fillStyle = "darkred"
+            ctx.arc(arr_cx[i], arr_cy[i], ctx.canvas.height/100, 0, Math.PI * 2);
+            ctx.fill();
+        }
+    }
     drawCanvas();
 
-    coords = JSON.parse(localStorage.getItem('coords'));
-    if (coords !== null) {
-
-        coords.forEach(function (crd) {
-            let
-                e = {
-                    clientX: crd["0"],
-                    clientY: crd["1"]
-                };
-            ctx.beginPath();
-            ctx.arc(e.clientX, e.clientY, 2, 0, Math.PI * 2);
-            ctx.fillStyle = "#0af167";
-            ctx.fill();
-        });
-    } else
-        coords = [];
-
     graph.addEventListener('click', function (e) {
-        if (isNaN(r)) {
-            ctx.beginPath();
-            ctx.arc(e.clientX - 23, e.clientY - 73, 2, 0, Math.PI * 2);
-            ctx.fillStyle = "red";
-            ctx.fill();
-        } else {
-            coords.push([e.clientX - 23, e.clientY - 73]);
-            localStorage.setItem('coords', JSON.stringify(coords));
+        if (!isNaN(r)) {
 
-            y = ((110 - (e.clientY - 73)) * r) / 60;
-            x = (((e.clientX - 23) - 200) * r) / 60;
+            x = ((e.offsetX - ctx.canvas.width / 2) / (7 * ctx.canvas.width / 8 - ctx.canvas.width / 2)) * r;
+            y = ((ctx.canvas.height / 2 - e.offsetY) / (ctx.canvas.width / 2 - ctx.canvas.height / 8)) * r;
 
             if ((x <= 0 && y >= 0 && x >= -r && y <= r / 2) ||
                 (x <= 0 && y <= 0 && (x * x) + (y * y) <= ((r * r) / 4)) ||
