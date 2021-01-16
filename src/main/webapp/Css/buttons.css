@@ -14,16 +14,16 @@ button:active {
     animation: transform 2s infinite;
 }
 #theme-button{
-    position: absolute;
-    margin-left: 8%;
+    /*position: absolute;*/
+    margin-left: 12%;
     font-size: 16px;
     margin-top: 0;
     margin-bottom: 0;
     padding: 0.5% 1%;
 }
 #aus-button {
-    position: absolute;
-    margin-left: 24%;
+    /*position: absolute;*/
+    margin-left: 5%;
     font-size: 16px;
     margin-top: 0;
     margin-bottom: 0;

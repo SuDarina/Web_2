@@ -27,12 +27,13 @@
     <script type="text/javascript" src="rotate.js"></script>
 </head>
 <body>
-<div id="page">
+<%--<a href="#top">--%>
+<%--<div id="page">--%>
+    <div style="height: 100%; overflow: scroll">
 <table class="verst">
     <tr class="header">
         <td class="left">
             <div>Супрядкина Дарья,<button class="theme-button" id="theme-button">Change theme</button><button class="aus-button" id="aus-button" onclick="australia()">Go to Australia</button><br>Ходосова Елена, P3230
-
             </div>
         </td>
 
@@ -43,7 +44,6 @@
             </div>
         </td>
     </tr>
-
     <!--    фон-->
     <tr class="page">
         <!--        фон-->
@@ -148,6 +148,7 @@
         <td>
             <!--            Место для контента (таблица)-->
 
+<%--            <div style="height: 100%; overflow: scroll">--%>
             <table id="main-table">
 
                 <%
@@ -160,17 +161,28 @@
                 %>
 
             </table>
-
+<%--            </div>--%>
+        </td>
+    </tr>
+    <tr id = 'clear'>
+        <td></td>
+    </tr>
+    <tr class = footer>
+        <td colspan="2">
+<%--            <a name="top"></a>--%>
+            <a class="git-href" href="https://github.com/SuDarina/Web_2">
+                <img class="github"  style="width: 30px" src="resources/icon.png">
+            </a>
         </td>
     </tr>
 </table>
-<div class="footer">
+    </div>
+<%--<div class="footer">--%>
 
-    <p colspan="2"><a class="git-href" href="https://github.com/SuDarina/Web_2">
-        <img class="github" src="resources/icon.png">
-    </a></p>
-</div>
-</div>
-
+<%--    <p colspan="2"><a class="git-href" href="https://github.com/SuDarina/Web_2">--%>
+<%--        <img class="github" src="resources/icon.png">--%>
+<%--    </a></p>--%>
+<%--</div>--%>
+<%--</div>--%>
 </body>
 </html>

@@ -74,9 +74,8 @@
 </table>
 
 <div class="footer">
-
     <p colspan="2"><a class="git-href" href="https://github.com/SuDarina/Web_2">
-        <img class="github" src="resources/icon.png">
+        <img class="github" style="width: 30px" src="resources/icon.png">
     </a></p>
 </div>
 
